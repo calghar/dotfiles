@@ -1,0 +1,127 @@
+#!/usr/bin/env bash
+
+source "$HOME/.config/sketchybar/variables.sh" # Loads all defined colors
+
+# General bar and defaults
+
+sketchybar --bar height=28 \
+	color="$BAR_COLOR" \
+	shadow="$SHADOW" \
+	position=top \
+	sticky=on \
+	padding_right=0 \
+	padding_left=3 \
+	corner_radius="$CORNER_RADIUS" \
+	y_offset=0 \
+	margin=2 \
+	blur_radius=20 \
+	notch_width=200 \
+	--default updates=when_shown \
+	icon.font="$FONT:Bold:12.5" \
+	icon.color="$ICON_COLOR" \
+	icon.padding_left="$PADDINGS" \
+	icon.padding_right="$PADDINGS" \
+	label.font="$FONT:Bold:12.0" \
+	label.color="$LABEL_COLOR" \
+	label.padding_left="$PADDINGS" \
+	label.padding_right="$PADDINGS" \
+	background.padding_right="$PADDINGS" \
+	background.padding_left="$PADDINGS" \
+	popup.background.border_width=1 \
+	popup.background.corner_radius=11 \
+	popup.background.border_color="$POPUP_BORDER_COLOR" \
+	popup.background.color="$POPUP_BACKGROUND_COLOR" \
+	popup.background.shadow.drawing="$SHADOW"
+
+# Left
+# source "$ITEM_DIR/apple.sh"
+# source "$ITEM_DIR/spaces.sh"  # Replaced with aerospace integration
+# front_app now positioned after workspaces
+source "$ITEM_DIR/weather.sh"
+
+# Center (of notch)
+source "$ITEM_DIR/spotify.sh"
+
+# Right
+source "$ITEM_DIR/clock.sh"
+source "$ITEM_DIR/calendar.sh"
+source "$ITEM_DIR/battery.sh"
+source "$ITEM_DIR/volume.sh"
+source "$ITEM_DIR/cpu.sh"
+# source "$ITEM_DIR/memory.sh"  # Commented out - memory usage removed per request
+source "$ITEM_DIR/network.sh"
+
+# Aerospace integration
+sketchybar --add event aerospace_workspace_change
+sketchybar --add event aerospace_focus_change  
+sketchybar --add event aerospace_window_change
+sketchybar --add event display_change
+
+# Create workspace items dynamically based on existing workspaces
+# First create the main 5 workspaces
+for i in {1..5}; do
+	sketchybar --add item space.$i left \
+	    --subscribe space.$i aerospace_workspace_change aerospace_focus_change aerospace_window_change \
+	    --set space.$i \
+	    background.color=$TRANSPARENT \
+	    background.corner_radius=6 \
+	    background.height=20 \
+	    background.drawing=off \
+	    icon="${SPACE_ICONS[$((i-1))]}" \
+	    icon.color=$COMMENT \
+	    icon.font="$FONT:Bold:12.0" \
+	    icon.padding_left=8 \
+	    icon.padding_right=4 \
+	    icon.y_offset=0 \
+	    label.drawing=off \
+	    label.font="$FONT:Medium:9.5" \
+	    label.color=$WHITE \
+	    label.padding_left=4 \
+	    label.padding_right=8 \
+	    label.max_chars=20 \
+	    script="$PLUGIN_DIR/aerospace.sh" \
+	    click_script="aerospace workspace $i" \
+	    update_freq=2
+done
+
+# Create additional workspace items for external displays (workspace 6+)
+for i in {6..10}; do
+	sketchybar --add item space.$i left \
+	    --subscribe space.$i aerospace_workspace_change aerospace_focus_change aerospace_window_change display_change \
+	    --set space.$i \
+	    background.color=$TRANSPARENT \
+	    background.corner_radius=6 \
+	    background.height=20 \
+	    background.drawing=off \
+	    icon="󰍹" \
+	    icon.color=$COMMENT \
+	    icon.font="$FONT:Bold:12.0" \
+	    icon.padding_left=8 \
+	    icon.padding_right=4 \
+	    icon.y_offset=0 \
+	    label.drawing=off \
+	    label.font="$FONT:Medium:9.5" \
+	    label.color=$WHITE \
+	    label.padding_left=4 \
+	    label.padding_right=8 \
+	    label.max_chars=20 \
+	    script="$PLUGIN_DIR/aerospace.sh" \
+	    click_script="aerospace workspace $i" \
+	    update_freq=2
+done
+
+# Add a spacer after workspaces
+sketchybar --add item workspace_spacer left \
+	--set workspace_spacer background.drawing=off \
+	    label.drawing=off \
+	    icon.drawing=off \
+	    width=10
+
+# Add front_app but position it strategically 
+source "$ITEM_DIR/front_app.sh"
+
+sketchybar --hotload true
+
+sketchybar --update
+
+echo "sketchybar configuration loaded.."

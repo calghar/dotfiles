@@ -1,0 +1,35 @@
+# Theme and appearance
+theme = catppuccin-mocha
+font-family = FiraCode Nerd Font
+font-size = 22
+
+# Background settings
+background = #0f0f0f
+background-opacity = 0.85
+background-blur-radius = 20
+
+# Window settings
+window-decoration = true
+macos-non-native-fullscreen = false
+
+# Terminal settings
+term = xterm-256color
+shell-integration = zsh
+scrollback-limit = 10000
+
+# Mouse settings
+mouse-hide-while-typing = true
+copy-on-select = true
+macos-option-as-alt = true
+
+# Key bindings - using tmux-based workflow only
+keybind = ctrl+a=text:^A
+
+# Tab visibility settings
+window-title-font-family = FiraCode Nerd Font
+
+# Performance
+auto-update-channel = tip
+
+# Include custom keybindings from mappings.conf
+config-file = mappings.conf

@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# Tmux Profiles Helper Script
+# Usage: tmux-profiles [start|switch|list|help]
+
+case "$1" in
+    start)
+        echo "Starting tmux profiles..."
+        ~/.config/tmux/startup.sh
+        ;;
+    switch)
+        if [ -z "$2" ]; then
+            echo "Available profiles: dev, monitor, terminal, logs"
+            echo "Usage: tmux-profiles switch <profile>"
+            exit 1
+        fi
+        tmux switch-client -t "$2" 2>/dev/null || echo "Profile '$2' not found"
+        ;;
+    list)
+        echo "Available profiles:"
+        echo "  1. dev      - Development environment (nvim, git)"
+        echo "  2. monitor  - System monitoring (htop, btop, iostat)"
+        echo "  3. terminal - General terminal sessions"
+        echo "  4. logs     - System logs monitoring"
+        echo ""
+        echo "Current sessions:"
+        tmux list-sessions 2>/dev/null || echo "No tmux sessions running"
+        ;;
+    help|*)
+        echo "Tmux Profiles Manager"
+        echo "Usage: tmux-profiles [command]"
+        echo ""
+        echo "Commands:"
+        echo "  start   - Create all profiles"
+        echo "  switch  - Switch to a specific profile"
+        echo "  list    - List available profiles and current sessions"
+        echo "  help    - Show this help"
+        echo ""
+        echo "Profile Navigation (inside tmux):"
+        echo "  Prefix + 1  - Switch to dev profile"
+        echo "  Prefix + 2  - Switch to monitor profile"  
+        echo "  Prefix + 3  - Switch to terminal profile"
+        echo "  Prefix + 4  - Switch to logs profile"
+        echo "  Prefix + r  - Reload tmux config"
+        ;;
+esac

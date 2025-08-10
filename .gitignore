@@ -1,0 +1,40 @@
+# Tmux plugins (downloaded via TPM)
+tmux/plugins/
+
+# Shell completions (can be regenerated)
+*/completions/
+
+# Generated/cache files
+*.log
+*.cache
+
+# Backup/temporary files
+*.bak
+*~
+*.tmp
+*-[0-9]*
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Personal data that shouldn't be shared
+btop/btop.log
+
+# Large binary files (wallpapers can be optional)
+# Uncomment if you want to exclude wallpapers from themes
+
+# Yazi backup files (timestamped configs)
+yazi/*-[0-9]*
+
+# NVim lazy lock (can be regenerated)
+nvim/lazy-lock.json
+
+# Stats/data files
+nvim/typrstats
