@@ -157,6 +157,13 @@ alt-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
 alt-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
 alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
 
+# Move window to workspace without following (for quick reassignment)
+ctrl-alt-1 = 'move-node-to-workspace 1'
+ctrl-alt-2 = 'move-node-to-workspace 2'
+ctrl-alt-3 = 'move-node-to-workspace 3'
+ctrl-alt-4 = 'move-node-to-workspace 4'
+ctrl-alt-5 = 'move-node-to-workspace 5'
+
 
 ctrl-shift-cmd-alt-enter = 'fullscreen'
 
@@ -228,6 +235,14 @@ run = ['layout tiling', 'move-node-to-workspace 2']
 if.app-id = 'com.apple.Notes'
 run = ['layout tiling', 'move-node-to-workspace 2']
 
+[[on-window-detected]]
+if.app-id = 'com.apple.news'
+run = ['layout tiling', 'move-node-to-workspace 2']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ['layout tiling', 'move-node-to-workspace 2']
+
 # Workspace 3: Communication - Slack
 [[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
@@ -246,6 +261,14 @@ run = ['layout tiling', 'move-node-to-workspace 4']
 if.app-id = 'us.zoom.xos'
 run = ['layout tiling', 'move-node-to-workspace 4']
 
+[[on-window-detected]]
+if.app-id = 'com.linguee.DeepLCopyTranslator'
+run = ['layout tiling', 'move-node-to-workspace 4']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.iCal'
+run = ['layout tiling', 'move-node-to-workspace 4']
+
 # Workspace 5: Extended Communication (Tiling layout) - WeChat, Lark, Discord
 [[on-window-detected]]
 if.app-id = 'com.tencent.xinWeChat'
@@ -257,6 +280,14 @@ run = ['layout tiling', 'move-node-to-workspace 5']
 
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
+run = ['layout tiling', 'move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'com.colliderli.iina'
+run = ['layout tiling', 'move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Music'
 run = ['layout tiling', 'move-node-to-workspace 5']
 
 # Default: All other windows float

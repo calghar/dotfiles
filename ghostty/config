@@ -1,6 +1,6 @@
 # Theme and appearance
-theme = catppuccin-mocha
-font-family = FiraCode Nerd Font
+theme = Catppuccin Mocha
+font-family = FiraCode Nerd Font Mono
 font-size = 22
 
 # Background settings
@@ -26,7 +26,7 @@ macos-option-as-alt = true
 keybind = ctrl+a=text:^A
 
 # Tab visibility settings
-window-title-font-family = FiraCode Nerd Font
+window-title-font-family = FiraCode Nerd Font Mono
 
 # Performance
 auto-update-channel = tip
