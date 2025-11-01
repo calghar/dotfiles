@@ -5,6 +5,7 @@
 # PATH setup
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 
 # Preserved paths from previous configuration
 export GOPATH=$HOME/go
@@ -120,3 +121,14 @@ if [[ -z "$TMUX" && -z "$FASTFETCH_SHOWN" ]]; then
     export FASTFETCH_SHOWN=1
     fastfetch --config ~/.config/fastfetch/config-ultra-fast.jsonc
 fi
+
+# ╭──────────────────────────────────────────────────────────╮
+# │                    Shell Settings                        │
+# ╰──────────────────────────────────────────────────────────╯
+
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=($HOME/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
