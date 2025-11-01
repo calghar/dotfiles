@@ -62,6 +62,8 @@ return {
 	require("configs.enhancement").spectre,
 	-- floaterm
 	require("configs.enhancement").floaterm,
+	-- toggleterm
+	require("configs.enhancement").toggleterm,
 	--diffview
 	require("configs.git").diffview,
 	-- avante
@@ -74,6 +76,8 @@ return {
 	-- [[ #################################################################################### ]]
 
 	-- [[ ################################### integration ################################### ]]
+	-- nvim-tree
+	require("configs.filetree").nvimtree,
 	-- yazi
 	require("configs.integration").yazi,
 	-- vim-tmux-navigator
