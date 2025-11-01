@@ -1,11 +1,12 @@
 #!/bin/bash
 # AeroSpace Config Sync Script
 # Merges base aerospace.toml with personal app assignments
+# Updates the base config in-place, which is symlinked to ~/.config/aerospace/aerospace.toml
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BASE_CONFIG="$SCRIPT_DIR/aerospace.toml"
+BASE_CONFIG="$SCRIPT_DIR/aerospace.toml.base"
 PERSONAL_CONFIG="$SCRIPT_DIR/aerospace-personal.toml"
-TARGET_CONFIG="$HOME/.aerospace.toml"
+TARGET_CONFIG="$SCRIPT_DIR/aerospace.toml"
 
 # Colors for output
 GREEN='\033[0;32m'
