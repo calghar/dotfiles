@@ -27,6 +27,9 @@ Thumbs.db
 # Personal data that shouldn't be shared
 btop/btop.log
 
+# Personal aerospace app assignments
+aerospace/aerospace-personal.toml
+
 # Large binary files (wallpapers can be optional)
 # Uncomment if you want to exclude wallpapers from themes
 

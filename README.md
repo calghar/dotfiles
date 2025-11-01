@@ -51,7 +51,10 @@ After setup, restart your terminal or run `source ~/.zshrc` to load the new shel
 ### Window Management
 
 - [AeroSpace](https://github.com/nikitabobko/AeroSpace) tiling WM
-- [SketchyBar](https://github.com/FelixKratz/SketchyBar) status bar  
+  - Personal app assignments kept in `aerospace-personal.toml` (not tracked in git)
+  - Copy `aerospace-personal.toml.example` to get started
+  - Run `./aerospace/sync-config.sh` to merge configs to `~/.aerospace.toml`
+- [SketchyBar](https://github.com/FelixKratz/SketchyBar) status bar
 - [SKHD](https://github.com/koekeishiya/skhd) hotkeys
 
 ### System Tools
@@ -122,12 +125,9 @@ zsh/          # Shell plugins (syntax highlighting, autosuggestions)
 
 ### Workspace Management (AeroSpace)
 - **Alt+1-5**: Switch to workspace 1-5
-- **Alt+Shift+1-5**: Move window to workspace 1-5
-- **Workspace 1**: Development (Ghostty, Arc, VSCode)
-- **Workspace 2**: Productivity (Brave, Obsidian, Notion, Notes)  
-- **Workspace 3**: Communication (Slack)
-- **Workspace 4**: Business (Chrome, Outlook)
-- **Workspace 5**: Extended Communication (WeChat, Lark, Discord)
+- **Alt+Shift+1-5**: Move window to workspace and follow
+- **Ctrl+Alt+1-5**: Move window to workspace without following
+- **Personal app assignments**: Edit `aerospace/aerospace-personal.toml` and run `./aerospace/sync-config.sh`
 
 ### Terminal & Tmux
 - **Tmux prefix**: `Ctrl+B`

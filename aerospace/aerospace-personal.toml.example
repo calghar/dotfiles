@@ -1,0 +1,45 @@
+# ╭──────────────────────────────────────────────────────────────────────╮
+# │              Personal Application Window Assignments                 │
+# ╰──────────────────────────────────────────────────────────────────────╯
+#
+# Copy this file to aerospace-personal.toml and customize with your apps.
+# This file is tracked in git as an example. Your personal file is ignored.
+#
+# To find an app's bundle ID:
+# osascript -e 'id of app "AppName"'
+# or
+# mdls -name kMDItemCFBundleIdentifier /Applications/AppName.app
+
+# Workspace 1: Development
+# Example: Terminal, IDE, Browser
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = ['layout tiling', 'move-node-to-workspace 1']
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = ['layout tiling', 'move-node-to-workspace 1']
+
+# Workspace 2: Productivity
+# Example: Notes, Browser, Documents
+[[on-window-detected]]
+if.app-id = 'com.apple.Notes'
+run = ['layout tiling', 'move-node-to-workspace 2']
+
+# Workspace 3: Communication
+# Example: Slack, Teams, Messages
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = ['layout tiling', 'move-node-to-workspace 3']
+
+# Workspace 4: Business
+# Example: Email, Calendar, Video Calls
+[[on-window-detected]]
+if.app-id = 'com.microsoft.Outlook'
+run = ['layout tiling', 'move-node-to-workspace 4']
+
+# Workspace 5: Media/Other
+# Example: Music, Video Players
+[[on-window-detected]]
+if.app-id = 'com.apple.Music'
+run = ['layout tiling', 'move-node-to-workspace 5']
