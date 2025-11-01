@@ -45,7 +45,9 @@
 
 | Key | Action |
 |-----|--------|
-| `<leader>e` | Toggle file explorer |
+| `<leader>e` | Toggle nvim-tree file explorer |
+| `<Ctrl+n>` | Toggle nvim-tree file explorer |
+| `<leader>ef` | Find current file in tree |
 | `<leader>ff` | Find files |
 | `<leader>fa` | Find all files |
 | `<leader>fw` | Find word |
@@ -201,11 +203,35 @@
 
 ## Plugin Features
 
-### Terminal (Floaterm)
+### Terminal Integration
 
+#### Floaterm (Legacy)
 | Key | Action |
 |-----|--------|
 | `<leader>if` | Toggle floating terminal |
+
+#### ToggleTerm (Enhanced)
+| Key | Action |
+|-----|--------|
+| `<Ctrl+\>` | Toggle terminal (main) |
+| `<leader>th` | Toggle horizontal terminal |
+| `<leader>tv` | Toggle vertical terminal |
+| `<leader>tt` | Toggle floating terminal |
+| `<leader>tb` | Toggle terminal in new tab |
+
+#### Terminal Navigation
+| Key | Action |
+|-----|--------|
+| `<Esc>` or `jk` | Exit terminal mode |
+| `<Ctrl+h/j/k/l>` | Navigate between terminal/editor windows |
+
+#### Specialized Terminals
+| Key | Action |
+|-----|--------|
+| `<leader>gg` | Toggle LazyGit |
+| `<leader>tn` | Toggle Node.js REPL |
+| `<leader>tp` | Toggle Python REPL |
+| `<leader>th` | Toggle Htop system monitor |
 
 ### Menu System
 
@@ -216,18 +242,37 @@
 
 ### File Tree Navigation
 
-#### NvimTree
+#### NvimTree (VS Code-like sidebar)
 | Key | Action |
 |-----|--------|
-| `<leader>e` | Toggle file explorer |
-| `Ctrl+n` | Toggle NvimTree |
+| `<leader>e` | Toggle file tree explorer |
+| `<Ctrl+n>` | Toggle file tree explorer |
+| `<leader>ef` | Find current file in tree |
+
+**In NvimTree:**
+| Key | Action |
+|-----|--------|
 | `a` | Add file/folder |
-| `r` | Rename |
-| `d` | Delete |
-| `x` | Cut |
-| `c` | Copy |
-| `p` | Paste |
-| `R` | Refresh |
+| `r` | Rename file/folder |
+| `d` | Delete file/folder |
+| `x` | Cut file/folder |
+| `c` | Copy file/folder |
+| `p` | Paste file/folder |
+| `R` | Refresh tree |
+| `H` | Toggle hidden files |
+| `o` | Open file/folder |
+| `<CR>` | Open file/folder |
+| `<Tab>` | Open file but keep cursor in tree |
+| `v` | Open file in vertical split |
+| `s` | Open file in horizontal split |
+| `t` | Open file in new tab |
+| `<BS>` | Close directory |
+| `P` | Go to parent directory |
+| `K` | Show file info |
+| `<C-k>` | Show file info |
+| `y` | Copy filename |
+| `Y` | Copy relative path |
+| `gy` | Copy absolute path |
 
 #### Yazi File Manager
 | Key | Action |
@@ -316,19 +361,43 @@
 > • Use `Tab/Shift+Tab` for quick buffer switching  
 > • `<leader>fb` for fuzzy buffer search
 
-> **File Tree Workflow**  
+> **VS Code-like Workflow with NvimTree + Terminal**  
+> • `<leader>e` or `Ctrl+n` to toggle sidebar file tree  
+> • `<leader>tv` for vertical terminal alongside tree  
+> • `<leader>th` for horizontal terminal at bottom  
+> • `Ctrl+h/j/k/l` to navigate between tree, editor, and terminal  
+> • Files opened from tree appear in main editor area  
+> • Tree stays open while you work on multiple files
+
+> **File Tree Workflow (NvimTree)**  
+> • Use `<leader>e` to toggle file tree sidebar  
+> • Navigate with `j/k`, expand with `o` or `Enter`  
+> • `v` opens file in vertical split, `s` in horizontal split  
+> • `<leader>ef` finds current file in tree  
+> • Tree auto-updates when you switch files  
+> • Right-click for context menu
+
+> **Yazi File Manager (Advanced)**  
 > • Use `Space -` to open yazi file browser  
 > • After opening a file, use `Space -` or `Ctrl+Up` to return to yazi  
-> • Use `:q` to close current file, `q` to exit yazi  
 > • In yazi: `Ctrl+v` opens files in vertical split  
 > • In yazi: `Ctrl+s` opens files in horizontal split  
-> • Use `Ctrl+h/j/k/l` to navigate between split windows
+> • Use `:q` to close current file, `q` to exit yazi
+
+> **Terminal Integration**  
+> • `Ctrl+\` for quick floating terminal  
+> • `<leader>th` for bottom terminal (great for running tests)  
+> • `<leader>tv` for side terminal (VS Code-like)  
+> • `<leader>gg` for LazyGit in floating window  
+> • `<leader>tp` for Python REPL, `<leader>tn` for Node.js  
+> • Use `jk` or `Esc` to exit terminal mode, then `Ctrl+h/j/k/l` to navigate
 
 > **Multi-File Editing**  
-> • Open first file from yazi, then `:vs` for vertical split  
-> • Use `Space -` in the new split to open another file  
+> • Open file tree with `<leader>e`  
+> • Select files with `v` for vertical split or `s` for horizontal  
 > • `Ctrl+w w` cycles through all open windows  
-> • `Alt+Left/Right` to resize window widths
+> • `Alt+Left/Right` to resize window widths  
+> • Terminal can run alongside your editor splits
 
 > **File Finding**  
 > • `<leader>ff` for project files  
@@ -336,7 +405,8 @@
 > • `<leader>fo` for recently opened files
 
 > **Git Workflow**  
-> • `<leader>lg` opens LazyGit for full git interface  
+> • `<leader>gg` opens LazyGit in terminal (toggleterm integration)  
+> • `<leader>lg` opens LazyGit (snacks integration)  
 > • `<leader>gm` for commit history  
 > • `<leader>ga` for current status
 
@@ -344,6 +414,14 @@
 > • `K` for quick documentation  
 > • `<leader>ca` for available code actions  
 > • `<leader>ih` to toggle type hints
+
+> **Development Workflow Example**  
+> 1. `<leader>e` - Open file tree sidebar  
+> 2. `<leader>th` - Open bottom terminal  
+> 3. Navigate in tree, open files with `o` or splits with `v`/`s`  
+> 4. Run tests/commands in terminal with `npm test`, `python script.py`, etc.  
+> 5. Use `Ctrl+h/j/k/l` to move between tree, editor, and terminal  
+> 6. `<leader>gg` for git operations when needed
 
 ---
 
