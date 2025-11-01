@@ -29,6 +29,8 @@ btop/btop.log
 
 # Personal aerospace app assignments
 aerospace/aerospace-personal.toml
+# Generated aerospace config (merged from .base + personal)
+aerospace/aerospace.toml
 
 # Large binary files (wallpapers can be optional)
 # Uncomment if you want to exclude wallpapers from themes
