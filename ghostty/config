@@ -3,7 +3,7 @@ theme = Catppuccin Mocha
 font-family = FiraCode Nerd Font Mono
 font-size = 22
 
-# Background settings
+# Background (custom dark base with transparency)
 background = #0f0f0f
 background-opacity = 0.85
 background-blur-radius = 20
@@ -13,8 +13,6 @@ window-decoration = true
 macos-non-native-fullscreen = false
 
 # Terminal settings
-term = xterm-256color
-shell-integration = zsh
 scrollback-limit = 10000
 
 # Mouse settings
@@ -24,9 +22,6 @@ macos-option-as-alt = true
 
 # Key bindings - using tmux-based workflow only
 keybind = ctrl+a=text:^A
-
-# Tab visibility settings
-window-title-font-family = FiraCode Nerd Font Mono
 
 # Performance
 auto-update-channel = tip

@@ -39,8 +39,9 @@ setopt SHARE_HISTORY
 setopt HIST_VERIFY
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
-# Force VS Code Shell Integration
-[[ -f "$VSCODE_GIT_ASKPASS_NODE" ]] && . "$(dirname "$(dirname "$VSCODE_GIT_ASKPASS_NODE")")/out/vs/workbench/contrib/terminal/browser/media/shellIntegration-rc.zsh"
+setopt HIST_REDUCE_BLANKS
+setopt INC_APPEND_HISTORY
+
 # ╭──────────────────────────────────────────────────────────╮
 # │                     Tool Integration                     │
 # ╰──────────────────────────────────────────────────────────╯
@@ -123,12 +124,8 @@ if [[ -z "$TMUX" && -z "$FASTFETCH_SHOWN" ]]; then
     fastfetch --config ~/.config/fastfetch/config-ultra-fast.jsonc
 fi
 
-# ╭──────────────────────────────────────────────────────────╮
-# │                    Shell Settings                        │
-# ╰──────────────────────────────────────────────────────────╯
-
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-
-# VS Code shell integration for Copilot
-[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+# Docker CLI completions (if available)
+if [[ -d "$HOME/.docker/completions" ]]; then
+    fpath=($HOME/.docker/completions $fpath)
+fi
 

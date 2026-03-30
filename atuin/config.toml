@@ -1,82 +1,57 @@
 # Atuin Configuration
-# Enhanced shell history management
-# https://github.com/atuinsh/atuin
+# https://docs.atuin.sh/configuration/config/
 
-## Database settings
-[database]
-# Use SQLite for local storage
-dialect = "sqlite"
-path = "~/.local/share/atuin/history.db"
-
-## History settings
-[history]
-# Enable fuzzy search
-fuzzy = true
-
-# Show times in history
-show_time = true
-
-# Show exit codes
-show_exit = true
-
-# Maximum number of commands to keep in history
-max_entries = 100000
-
-# Enable inline suggestions
-inline_height = 10
-
-# Sync settings (set to false for local-only usage)
-sync_enabled = false
-
-## Search settings
-[search]
-# Search mode: "prefix", "fulltext", or "fuzzy"
+# Search mode: "prefix", "fulltext", "fuzzy", "skim", or "daemon-fuzzy"
 search_mode = "fuzzy"
 
-# Filter mode
+# Filter mode: "global", "host", "session", "directory", "workspace"
 filter_mode = "global"
 
-# Show preview of command
-show_preview = true
-
-# Enable word jump mode
-word_jump_mode = "emacs"
-
-## Key bindings
-[keys]
-# Use ctrl-r for search (default)
-search = "ctrl-r"
-
-# Use up arrow for prefix search
-up = "prefix"
-
-## UI settings
-[ui]
-# Style options: "auto", "compact", "full"
+# Style: "auto", "compact", "full"
 style = "auto"
 
-# Show help text
+# Inline height for search UI
+inline_height = 10
+
+# Show preview of selected command
+show_preview = true
+
+# Show help row with version and keymap hints
 show_help = true
 
-# Use different colors for different exit codes
-exit_code_colors = true
+# Immediately execute on enter (tab to edit first)
+enter_accept = true
 
-## Privacy settings
-[privacy]
-# Don't record commands that start with a space
-leading_whitespace = "ignore"
+# Keymap mode: "emacs", "vim-normal", "vim-insert", "auto"
+keymap_mode = "auto"
 
-# Don't record common commands
-common_prefix = [
-    "ls",
-    "cd",
-    "pwd",
-    "clear",
-    "exit",
-    "history"
+# Don't store commands that look like secrets
+secrets_filter = true
+
+# Store commands that failed
+store_failed = true
+
+# Don't check for updates (managed by brew)
+update_check = false
+
+# History filter: exclude commands matching these patterns
+history_filter = [
+    "^exit$",
 ]
 
-## Update settings
-[update]
-# Check for updates
-check_interval = "7d"
+[keys]
+scroll_exits = true
+
+[stats]
+common_subcommands = [
+    "cargo",
+    "docker",
+    "git",
+    "go",
+    "kubectl",
+    "npm",
+    "pnpm",
+    "yarn",
+    "brew",
+]
+common_prefix = ["sudo"]
