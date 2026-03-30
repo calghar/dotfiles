@@ -1,0 +1,208 @@
+# Catppuccin Mocha Theme for Starship
+palette = "catppuccin_mocha"
+
+# Left side: directory and git info only
+format = """
+$os\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$package\
+$line_break$character"""
+
+# Right side: versions, time, and other info
+right_format = """
+$c\
+$elixir\
+$elm\
+$golang\
+$gradle\
+$haskell\
+$java\
+$julia\
+$nodejs\
+$nim\
+$python\
+$rust\
+$scala\
+$docker_context\
+$memory_usage\
+$battery\
+$time\
+"""
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
+
+
+[directory]
+style = "fg:peach bold"
+format = "[ $path]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+[git_branch]
+symbol = " "
+style = "fg:green bold"
+format = '[$symbol$branch]($style)'
+
+[git_status]
+style = "fg:red bold"
+format = '[$all_status$ahead_behind]($style)'
+conflicted = " "
+ahead = " "
+behind = " "
+diverged = " "
+untracked = " "
+stashed = " "
+modified = " "
+staged = " "
+renamed = " "
+deleted = " "
+
+[nodejs]
+symbol = " "
+style = "fg:teal bold"
+format = '[$symbol$version]($style)'
+
+[c]
+symbol = " "
+style = "fg:teal bold"
+format = '[$symbol$version]($style)'
+
+[rust]
+symbol = " "
+style = "fg:teal bold"
+format = '[$symbol$version]($style)'
+
+[golang]
+symbol = " "
+style = "fg:teal bold"
+format = '[$symbol$version]($style)'
+
+[php]
+symbol = ""
+style = "fg:teal bold"
+format = '[$symbol$version]($style)'
+
+[java]
+symbol = " "
+style = "fg:teal bold"
+format = '[$symbol$version]($style)'
+
+[kotlin]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[haskell]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[python]
+symbol = " "
+style = "fg:teal bold"
+format = '[$symbol$version]($style)'
+
+[docker_context]
+symbol = " "
+style = "fg:blue bold"
+format = '[$symbol$context]($style)'
+
+[time]
+disabled = false
+time_format = "%R"
+style = "fg:purple bold"
+format = '[ $time]($style)'
+
+[line_break]
+disabled = false
+
+[character]
+disabled = false
+success_symbol = '[➜](bold fg:green)'
+error_symbol = '[➜](bold fg:red)'
+vicmd_symbol = '[➜](bold fg:yellow)'
+
+[os]
+disabled = false
+style = "fg:blue bold"
+[os.symbols]
+Macos = " "
+Linux = " "
+Windows = " "
+
+[username]
+style_user = "fg:yellow bold"
+style_root = "fg:red bold"
+format = '[$user]($style)'
+disabled = false
+show_always = false
+
+[hostname]
+ssh_only = false
+format = '[@$hostname]($style)'
+style = "fg:green bold"
+disabled = true
+
+[package]
+symbol = "󰏗 "
+style = "fg:yellow bold"
+format = '[$symbol$version]($style)'
+
+[memory_usage]
+disabled = false
+threshold = 70
+format = '[${ram}( | ${swap})]($style)'
+style = "fg:red bold"
+symbol = "󰍛 "
+
+[battery]
+full_symbol = "🔋"
+charging_symbol = "🔌"
+discharging_symbol = "⚡"
+unknown_symbol = "❓"
+empty_symbol = "🪫"
+
+[[battery.display]]
+threshold = 10
+style = "bold red"
+
+[[battery.display]]
+threshold = 30
+style = "bold yellow"

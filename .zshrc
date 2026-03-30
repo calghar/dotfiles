@@ -127,12 +127,7 @@ fi
 # │                    Shell Settings                        │
 # ╰──────────────────────────────────────────────────────────╯
 
-
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=($HOME/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
 
 # VS Code shell integration for Copilot
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
