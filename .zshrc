@@ -39,7 +39,8 @@ setopt SHARE_HISTORY
 setopt HIST_VERIFY
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
-
+# Force VS Code Shell Integration
+[[ -f "$VSCODE_GIT_ASKPASS_NODE" ]] && . "$(dirname "$(dirname "$VSCODE_GIT_ASKPASS_NODE")")/out/vs/workbench/contrib/terminal/browser/media/shellIntegration-rc.zsh"
 # ╭──────────────────────────────────────────────────────────╮
 # │                     Tool Integration                     │
 # ╰──────────────────────────────────────────────────────────╯
@@ -132,3 +133,7 @@ fpath=($HOME/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
+
+# VS Code shell integration for Copilot
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
