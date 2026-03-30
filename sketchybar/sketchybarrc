@@ -53,15 +53,12 @@ source "$ITEM_DIR/network.sh"
 
 # Aerospace integration
 sketchybar --add event aerospace_workspace_change
-sketchybar --add event aerospace_focus_change  
-sketchybar --add event aerospace_window_change
-sketchybar --add event display_change
 
 # Create workspace items dynamically based on existing workspaces
 # First create the main 5 workspaces
 for i in {1..5}; do
 	sketchybar --add item space.$i left \
-	    --subscribe space.$i aerospace_workspace_change aerospace_focus_change aerospace_window_change \
+	    --subscribe space.$i aerospace_workspace_change \
 	    --set space.$i \
 	    background.color=$TRANSPARENT \
 	    background.corner_radius=6 \
@@ -87,7 +84,7 @@ done
 # Create additional workspace items for external displays (workspace 6+)
 for i in {6..10}; do
 	sketchybar --add item space.$i left \
-	    --subscribe space.$i aerospace_workspace_change aerospace_focus_change aerospace_window_change display_change \
+	    --subscribe space.$i aerospace_workspace_change \
 	    --set space.$i \
 	    background.color=$TRANSPARENT \
 	    background.corner_radius=6 \

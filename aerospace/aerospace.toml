@@ -12,10 +12,9 @@ after-login-command = []
 after-startup-command = ['exec-and-forget sketchybar']
 
 # Notify Sketchybar about workspace change
-exec-on-workspace-change = [
-  '/bin/bash',
-  '-c',
-  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
+# See: https://nikitabobko.github.io/AeroSpace/goodies#show-aerospace-workspaces-in-sketchybar
+exec-on-workspace-change = ['/bin/bash', '-c',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE'
 ]
 
 
@@ -23,8 +22,8 @@ exec-on-workspace-change = [
 start-at-login = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
-enable-normalization-flatten-containers = true
-enable-normalization-opposite-orientation-for-nested-containers = true
+# enable-normalization-flatten-containers = true
+# enable-normalization-opposite-orientation-for-nested-containers = true
 
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
 # The 'accordion-padding' specifies the size of accordion padding
@@ -46,14 +45,11 @@ default-root-container-orientation = 'auto'
 # Fallback value (if you omit the key): on-focused-monitor-changed = []
 on-focused-monitor-changed = [
   'move-mouse monitor-lazy-center',
-  'exec-and-forget sketchybar --trigger display_change'
 ]
-on-focus-changed = [
-  # 'move-mouse window-lazy-center',
-  'exec-and-forget sketchybar --trigger aerospace_focus_change',
-  'exec-and-forget sketchybar --trigger aerospace_window_change',
-  'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
-]
+# on-focus-changed intentionally omitted — sketchybar updates are handled via
+# exec-on-workspace-change (event-driven) and update_freq polling (for window changes).
+# Using exec-and-forget in on-focus-changed causes process accumulation because it
+# fires on every single focus change (including mouse clicks, app switches, etc.).
 
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
@@ -309,5 +305,5 @@ if.app-id = 'com.apple.Music'
 run = ['layout tiling', 'move-node-to-workspace 5']
 
 # Default: All other windows float
-# [[on-window-detected]]
-# run = ['layout floating']
+[[on-window-detected]]
+run = ['layout floating']
