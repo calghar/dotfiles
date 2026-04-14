@@ -40,22 +40,18 @@ local M = {
 	surround = {
 		"kylechui/nvim-surround",
 		event = "BufRead",
+		init = function()
+			-- Disable all default keymaps; we set custom ones below
+			vim.g.nvim_surround_no_mappings = true
+		end,
 		config = function()
-			require("nvim-surround").setup({
-				keymaps = {
-					insert = false,
-					insert_line = false,
-					normal = false,
-					normal_cur = false,
-					normal_line = false,
-					normal_cur_line = false,
-					visual = "ss",
-					visual_line = "sl",
-					delete = "ds",
-					change = "cs",
-					change_line = "cl",
-				},
-			})
+			require("nvim-surround").setup()
+			-- Custom keymaps via <Plug> mappings (see :h nvim-surround.keymaps)
+			vim.keymap.set("x", "ss", "<Plug>(nvim-surround-visual)", { desc = "Surround visual selection" })
+			vim.keymap.set("x", "sl", "<Plug>(nvim-surround-visual-line)", { desc = "Surround visual selection (lines)" })
+			vim.keymap.set("n", "ds", "<Plug>(nvim-surround-delete)", { desc = "Delete surrounding pair" })
+			vim.keymap.set("n", "cs", "<Plug>(nvim-surround-change)", { desc = "Change surrounding pair" })
+			vim.keymap.set("n", "cl", "<Plug>(nvim-surround-change-line)", { desc = "Change surrounding pair (lines)" })
 		end,
 	},
 
