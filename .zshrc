@@ -129,3 +129,5 @@ if [[ -d "$HOME/.docker/completions" ]]; then
     fpath=($HOME/.docker/completions $fpath)
 fi
 
+# Local overrides and secrets (not tracked by git)
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

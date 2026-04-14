@@ -43,3 +43,6 @@ nvim/lazy-lock.json
 
 # Stats/data files
 nvim/typrstats
+
+# Local shell secrets (not tracked)
+.zshrc.local
