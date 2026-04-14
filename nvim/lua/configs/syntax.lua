@@ -1,6 +1,7 @@
 local M = {
 	treesitter = {
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
 		opts = {
 			ensure_installed = {
 				"html",
@@ -20,20 +21,14 @@ local M = {
 				"python",
 				"java",
 				"svelte",
-			"typescript",
-        "c",
-        "markdown_inline",
-		},
+				"typescript",
+				"c",
+				"markdown_inline",
+			},
 
-		-- Disabled: nvim-treesitter highlight/incremental_selection crash on
-		-- Neovim 0.12+ (match[id] returns a list, not a node).
-		-- Built-in vim.treesitter.start() handles highlighting now (see autocmds.lua).
-		highlight = { enable = false },
-		incremental_selection = { enable = false },
-	},
-		-- config = function(_, opts)
-		--   require("nvim-treesitter.configs").setup(opts)
-		-- end,
+			highlight = { enable = true },
+			incremental_selection = { enable = true },
+		},
 	},
 
 	lspconfig = {

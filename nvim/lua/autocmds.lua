@@ -113,12 +113,3 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	end,
 })
 
--- Use Neovim 0.12+ built-in treesitter highlighting
--- Replaces nvim-treesitter plugin highlight (archived, crashes on 0.12)
-if vim.fn.has("nvim-0.12") == 1 then
-	vim.api.nvim_create_autocmd("FileType", {
-		callback = function()
-			pcall(vim.treesitter.start)
-		end,
-	})
-end
