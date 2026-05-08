@@ -147,18 +147,20 @@ alt-4 = 'workspace 4'
 alt-5 = 'workspace 5'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
-alt-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
-alt-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
-alt-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
-alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
+# `layout tiling` prefix un-floats a floating window before the move so it
+# integrates into the destination workspace's tiling tree.
+alt-shift-1 = ['layout tiling', 'move-node-to-workspace 1', 'workspace 1']
+alt-shift-2 = ['layout tiling', 'move-node-to-workspace 2', 'workspace 2']
+alt-shift-3 = ['layout tiling', 'move-node-to-workspace 3', 'workspace 3']
+alt-shift-4 = ['layout tiling', 'move-node-to-workspace 4', 'workspace 4']
+alt-shift-5 = ['layout tiling', 'move-node-to-workspace 5', 'workspace 5']
 
 # Move window to workspace without following (for quick reassignment)
-ctrl-alt-1 = 'move-node-to-workspace 1'
-ctrl-alt-2 = 'move-node-to-workspace 2'
-ctrl-alt-3 = 'move-node-to-workspace 3'
-ctrl-alt-4 = 'move-node-to-workspace 4'
-ctrl-alt-5 = 'move-node-to-workspace 5'
+ctrl-alt-1 = ['layout tiling', 'move-node-to-workspace 1']
+ctrl-alt-2 = ['layout tiling', 'move-node-to-workspace 2']
+ctrl-alt-3 = ['layout tiling', 'move-node-to-workspace 3']
+ctrl-alt-4 = ['layout tiling', 'move-node-to-workspace 4']
+ctrl-alt-5 = ['layout tiling', 'move-node-to-workspace 5']
 
 
 ctrl-shift-cmd-alt-enter = 'fullscreen'
@@ -204,24 +206,14 @@ shift-down = ['volume set 0', 'mode main']
 # ╭──────────────────────────────────────────────────────────────────────╮
 # │                    Application Window Assignments                    │
 # ╰──────────────────────────────────────────────────────────────────────╯
-#
-# Personal app assignments are stored in aerospace-personal.toml
-# Copy aerospace-personal.toml.example to aerospace-personal.toml
-# and customize it with your specific applications.
-#
-# The install script will merge your personal config with this base config.
 
-
-# ═══════════════════════════════════════════════════════════════════
-# Personal App Assignments (from aerospace-personal.toml)
-# ═══════════════════════════════════════════════════════════════════
-# ╭──────────────────────────────────────────────────────────────────────╮
-# │              Personal Application Window Assignments                 │
-# ╰──────────────────────────────────────────────────────────────────────╯
-
-# Workspace 1: Development - Ghostty, Arc, VSCode
+# Workspace 1: Development - Terminals, Arc, VSCode
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
+run = ['layout tiling', 'move-node-to-workspace 1']
+
+[[on-window-detected]]
+if.app-id = 'com.googlecode.iterm2'
 run = ['layout tiling', 'move-node-to-workspace 1']
 
 [[on-window-detected]]
@@ -303,6 +295,14 @@ run = ['layout tiling', 'move-node-to-workspace 5']
 [[on-window-detected]]
 if.app-id = 'com.apple.Music'
 run = ['layout tiling', 'move-node-to-workspace 5']
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Personal App Assignments (from aerospace-personal.toml)
+# ═══════════════════════════════════════════════════════════════════
+# Personal aerospace rules (gitignored, machine-local).
+# All shared app rules live in aerospace.toml.base. Add anything
+# machine-specific here if needed; otherwise leave empty.
 
 # Default: All other windows float
 [[on-window-detected]]

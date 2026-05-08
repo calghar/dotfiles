@@ -147,18 +147,20 @@ alt-4 = 'workspace 4'
 alt-5 = 'workspace 5'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
-alt-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
-alt-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
-alt-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
-alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
+# `layout tiling` prefix un-floats a floating window before the move so it
+# integrates into the destination workspace's tiling tree.
+alt-shift-1 = ['layout tiling', 'move-node-to-workspace 1', 'workspace 1']
+alt-shift-2 = ['layout tiling', 'move-node-to-workspace 2', 'workspace 2']
+alt-shift-3 = ['layout tiling', 'move-node-to-workspace 3', 'workspace 3']
+alt-shift-4 = ['layout tiling', 'move-node-to-workspace 4', 'workspace 4']
+alt-shift-5 = ['layout tiling', 'move-node-to-workspace 5', 'workspace 5']
 
 # Move window to workspace without following (for quick reassignment)
-ctrl-alt-1 = 'move-node-to-workspace 1'
-ctrl-alt-2 = 'move-node-to-workspace 2'
-ctrl-alt-3 = 'move-node-to-workspace 3'
-ctrl-alt-4 = 'move-node-to-workspace 4'
-ctrl-alt-5 = 'move-node-to-workspace 5'
+ctrl-alt-1 = ['layout tiling', 'move-node-to-workspace 1']
+ctrl-alt-2 = ['layout tiling', 'move-node-to-workspace 2']
+ctrl-alt-3 = ['layout tiling', 'move-node-to-workspace 3']
+ctrl-alt-4 = ['layout tiling', 'move-node-to-workspace 4']
+ctrl-alt-5 = ['layout tiling', 'move-node-to-workspace 5']
 
 
 ctrl-shift-cmd-alt-enter = 'fullscreen'
@@ -204,12 +206,95 @@ shift-down = ['volume set 0', 'mode main']
 # ╭──────────────────────────────────────────────────────────────────────╮
 # │                    Application Window Assignments                    │
 # ╰──────────────────────────────────────────────────────────────────────╯
-#
-# Personal app assignments are stored in aerospace-personal.toml
-# Copy aerospace-personal.toml.example to aerospace-personal.toml
-# and customize it with your specific applications.
-#
-# The install script will merge your personal config with this base config.
+
+# Workspace 1: Development - Terminals, Arc, VSCode
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = ['layout tiling', 'move-node-to-workspace 1']
+
+[[on-window-detected]]
+if.app-id = 'com.googlecode.iterm2'
+run = ['layout tiling', 'move-node-to-workspace 1']
+
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.Browser'
+run = ['layout tiling', 'move-node-to-workspace 1']
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = ['layout tiling', 'move-node-to-workspace 1']
+
+# Workspace 2: Productivity - Brave, Obsidian, Notion, Notes, News, Finder
+[[on-window-detected]]
+if.app-id = 'com.brave.Browser'
+run = ['layout tiling', 'move-node-to-workspace 2']
+
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = ['layout tiling', 'move-node-to-workspace 2']
+
+[[on-window-detected]]
+if.app-id = 'notion.id'
+run = ['layout tiling', 'move-node-to-workspace 2']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Notes'
+run = ['layout tiling', 'move-node-to-workspace 2']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.news'
+run = ['layout tiling', 'move-node-to-workspace 2']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ['layout tiling', 'move-node-to-workspace 2']
+
+# Workspace 3: Communication - Slack
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = ['layout tiling', 'move-node-to-workspace 3']
+
+# Workspace 4: Business - Chrome, Outlook, Zoom, DeepL, Calendar
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = ['layout tiling', 'move-node-to-workspace 4']
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.Outlook'
+run = ['layout tiling', 'move-node-to-workspace 4']
+
+[[on-window-detected]]
+if.app-id = 'us.zoom.xos'
+run = ['layout tiling', 'move-node-to-workspace 4']
+
+[[on-window-detected]]
+if.app-id = 'com.linguee.DeepLCopyTranslator'
+run = ['layout tiling', 'move-node-to-workspace 4']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.iCal'
+run = ['layout tiling', 'move-node-to-workspace 4']
+
+# Workspace 5: Extended Communication - WeChat, Lark, Discord, IINA, Music
+[[on-window-detected]]
+if.app-id = 'com.tencent.xinWeChat'
+run = ['layout tiling', 'move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'com.electron.lark'
+run = ['layout tiling', 'move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = ['layout tiling', 'move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'com.colliderli.iina'
+run = ['layout tiling', 'move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Music'
+run = ['layout tiling', 'move-node-to-workspace 5']
 
 # Default: All windows float unless explicitly assigned
 [[on-window-detected]]
