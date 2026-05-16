@@ -11,7 +11,6 @@ brew "git"
 brew "tmux"
 brew "neovim"
 brew "starship"
-brew "stow"
 
 # File Management & Navigation
 brew "yazi"

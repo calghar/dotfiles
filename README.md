@@ -15,26 +15,41 @@ macOS dev environment built around **Zsh**, **Tmux**, **Neovim** (NvChad), and *
 ## Setup
 
 ```bash
-git clone https://github.com/calghar/dotfiles.git ~/dotfiles
+git clone --recursive https://github.com/calghar/dotfiles.git ~/dotfiles
 cd ~/dotfiles && ./setup.sh
 ```
 
-Restart your terminal after setup to load the new configuration.
+The `--recursive` flag pulls zsh plugin submodules. Restart your terminal after setup.
 
 <details>
 <summary><b>Manual setup</b></summary>
 
 ```bash
-# Install Homebrew
+# Prerequisites
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Clone with submodules
+git clone --recursive https://github.com/calghar/dotfiles.git ~/dotfiles
+cd ~/dotfiles
 
 # Install dependencies
 brew bundle install
+cargo install tree-sitter-cli
 
-# Symlink configs (GNU Stow)
-stow . --target="$HOME"
+# Symlink configs
+mkdir -p ~/.config
+for dir in aerospace atuin btop cava fastfetch fish ghostty neovide nvim sketchybar skhd starship tmux yazi zsh; do
+    ln -sfn ~/dotfiles/$dir ~/.config/$dir
+done
+ln -sfn ~/dotfiles/.zshrc ~/.zshrc
 
-# Install tmux plugins: start tmux, then Ctrl+B + I
+# Tmux plugins
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+~/.tmux/plugins/tpm/scripts/install_plugins.sh
+
+# Open nvim once to install plugins and compile parsers
+nvim --headless "+Lazy! sync" +qa
 ```
 
 </details>
@@ -53,18 +68,18 @@ stow . --target="$HOME"
 ## Directory Structure
 
 ```text
-.zshrc              # Shell configuration
+.zshrc              # Shell config (sources ~/.zshrc.local for secrets)
 aerospace/          # Tiling WM (base + personal config merge)
 atuin/              # Shell history
 btop/               # System monitor
 cava/               # Audio visualizer + shaders
 ghostty/            # Terminal (config, mappings, appearances, shaders)
-nvim/               # Editor (NvChad-based)
+nvim/               # Editor (NvChad-based, treesitter on main branch)
 sketchybar/         # Status bar (items, plugins, themes)
 starship/           # Prompt theme (Catppuccin Mocha)
 tmux/               # Multiplexer + plugins
 yazi/               # File manager
-zsh/                # Plugins (syntax highlighting, autosuggestions)
+zsh/                # Plugins (submodules: syntax highlighting, autosuggestions)
 cheatsheets/        # Quick reference (Neovim, Tmux, Ghostty)
 ```
 
@@ -110,13 +125,38 @@ cp aerospace/aerospace-personal.toml.example aerospace/aerospace-personal.toml
 
 ```bash
 theme                    # List available themes
-theme catppuccin-mocha   # Switch theme
-theme dracula            # Available: catppuccin-mocha, dracula, nord,
+theme catppuccin-mocha   # Switch theme (also: dracula, nord,
                          # gruvbox-dark, one-dark, solarized-dark,
-                         # material-ocean, rose-pine, github-dark
+                         # material-ocean, rose-pine, github-dark)
 ```
 
+## Local Overrides
+
+Machine-specific config goes in `~/.zshrc.local` (git-ignored, sourced at end of `.zshrc`). Use it for secrets, work-specific PATHs, or env vars you don't want shared.
+
+## Notes
+
+- **Neovim 0.12**: Uses `nvim-treesitter` on the `main` branch. Requires `tree-sitter-cli` (installed via Cargo) to compile parsers. First launch compiles all parsers (~30s).
+- **Zsh plugins**: Loaded as git submodules. If highlighting or suggestions are missing, run `git submodule update --init --recursive`.
+- **Cargo PATH**: Ensure `~/.cargo/bin` is in your PATH (rustup does this via `~/.cargo/env`).
+
 ## Troubleshooting
+
+<details>
+<summary><b>Treesitter errors on Neovim startup</b></summary>
+
+If you see `attempt to call method 'range' (a nil value)`, parsers need recompiling:
+
+```bash
+# Ensure tree-sitter-cli is installed
+cargo install tree-sitter-cli
+
+# Delete stale parsers and recompile
+rm -f ~/.local/share/nvim/lazy/nvim-treesitter/parser/*.so
+nvim  # parsers recompile on launch
+```
+
+</details>
 
 <details>
 <summary><b>Tmux plugins not loading</b></summary>
@@ -139,6 +179,16 @@ brew services restart sketchybar
 
 </details>
 
+<details>
+<summary><b>Zsh plugins missing (no syntax highlighting)</b></summary>
+
+```bash
+cd ~/dotfiles
+git submodule update --init --recursive
+```
+
+</details>
+
 ## Acknowledgments
 
-Built on top of amazing work by [Nikita Bobko](https://github.com/nikitabobko) (AeroSpace), [Felix Kratz](https://github.com/FelixKratz) (SketchyBar), and all the open-source maintainers behind these tools.
+Built on amazing work by [Nikita Bobko](https://github.com/nikitabobko) (AeroSpace), [Felix Kratz](https://github.com/FelixKratz) (SketchyBar), and all the open-source maintainers behind these tools.

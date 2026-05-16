@@ -6,6 +6,7 @@
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
 # Preserved paths from previous configuration
 export GOPATH=$HOME/go
