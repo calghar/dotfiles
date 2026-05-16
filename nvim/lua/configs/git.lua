@@ -90,6 +90,27 @@ local M = {
 		    -- stylua: ignore start
 		    { mode = "n", "<leader>gdo", "<cmd>DiffviewOpen<cr>", desc = "Diffview Open", },
 		    { mode = "n", "<leader>gdc", "<cmd>DiffviewClose<cr>", desc = "Diffview Close", },
+		    {
+		        mode = "n", "<leader>gdr",
+		        function()
+		            local ref = vim.fn.systemlist("git symbolic-ref --quiet --short refs/remotes/origin/HEAD")
+		            local base
+		            if vim.v.shell_error == 0 and ref[1] and ref[1] ~= "" then
+		                base = ref[1]:gsub("^origin/", "")
+		            else
+		                for _, b in ipairs({ "main", "master", "develop" }) do
+		                    vim.fn.system({ "git", "rev-parse", "--verify", "--quiet", b })
+		                    if vim.v.shell_error == 0 then base = b; break end
+		                end
+		            end
+		            if not base then
+		                vim.notify("Diffview: could not detect base branch", vim.log.levels.WARN)
+		                return
+		            end
+		            vim.cmd("DiffviewOpen " .. base .. "...HEAD")
+		        end,
+		        desc = "Diffview PR review (base...HEAD)",
+		    },
 		    { mode = "n", "<leader>gdf", "<cmd>DiffviewFileHistory<cr>", desc = "Diffview File History", },
 		    { mode = "n", "<leader>gdF", "<cmd>DiffviewFileHistory --follow %<cr>", desc = "Diffview Current File History", },
 		    { mode = "v", "<leader>gds", "<Esc><Cmd>'<,'>DiffviewFileHistory --follow<CR>", desc = "Diffview Selected Content History", },

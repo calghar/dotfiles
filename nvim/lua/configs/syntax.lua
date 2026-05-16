@@ -2,33 +2,76 @@ local M = {
 	treesitter = {
 		"nvim-treesitter/nvim-treesitter",
 		branch = "main",
-		opts = {
-			ensure_installed = {
-				"html",
-				"css",
-				"javascript",
-				"json",
-				"toml",
-				"markdown",
+		lazy = false,
+		build = ":TSUpdate",
+		config = function()
+			require("nvim-treesitter").setup({})
+
+			local ensure_installed = {
 				"bash",
+				"c",
+				"cpp",
+				"css",
 				"go",
 				"gomod",
 				"gosum",
 				"gotmpl",
 				"gowork",
-				"yaml",
-				"vue",
-				"python",
+				"html",
 				"java",
-				"svelte",
-				"typescript",
-				"c",
+				"javascript",
+				"json",
+				"lua",
+				"luadoc",
+				"markdown",
 				"markdown_inline",
-			},
+				"python",
+				"query",
+				"rust",
+				"svelte",
+				"toml",
+				"tsx",
+				"typescript",
+				"vim",
+				"vimdoc",
+				"vue",
+				"yaml",
+			}
 
-			highlight = { enable = true },
-			incremental_selection = { enable = true },
-		},
+			-- Install any missing parsers (main-branch API: opts.ensure_installed is ignored)
+			local ts_config = require("nvim-treesitter.config")
+			local installed = ts_config.get_installed("parsers")
+			local missing = vim.tbl_filter(function(l)
+				return not vim.list_contains(installed, l)
+			end, ensure_installed)
+			if #missing > 0 then
+				require("nvim-treesitter").install(missing)
+			end
+
+			local function start_ts(buf)
+				local ft = vim.bo[buf].filetype
+				if ft == "" then
+					return
+				end
+				local lang = vim.treesitter.language.get_lang(ft) or ft
+				if vim.list_contains(ts_config.get_installed("parsers"), lang) then
+					pcall(vim.treesitter.start, buf, lang)
+				end
+			end
+
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function(args)
+					start_ts(args.buf)
+				end,
+			})
+
+			-- Activate on already-loaded buffers (FileType already fired before plugin load)
+			for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+				if vim.api.nvim_buf_is_loaded(buf) then
+					start_ts(buf)
+				end
+			end
+		end,
 	},
 
 	lspconfig = {

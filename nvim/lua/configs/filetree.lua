@@ -3,6 +3,7 @@ local M = {}
 M.nvimtree = {
 	"nvim-tree/nvim-tree.lua",
 	dependencies = "nvim-tree/nvim-web-devicons",
+	lazy = false,
 	cmd = { "NvimTreeToggle", "NvimTreeOpen", "NvimTreeFindFile" },
 	keys = {
 		{ "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Toggle file tree" },
@@ -183,12 +184,6 @@ M.nvimtree = {
 				always_show_folders = true,
 			},
 			
-			-- System open
-			system_open = {
-				cmd = "",
-				args = {},
-			},
-			
 			-- Trash
 			trash = {
 				cmd = "gio trash",
@@ -254,6 +249,23 @@ M.nvimtree = {
 				vim.schedule_wrap(tab_win_closed(winnr))
 			end,
 			nested = true,
+		})
+
+		-- Auto-open on startup (VSCode-like)
+		vim.api.nvim_create_autocmd("VimEnter", {
+			callback = function(data)
+				local is_dir = vim.fn.isdirectory(data.file) == 1
+				if is_dir then
+					-- Directory arg: cd in and let nvim-tree hijack the buffer
+					vim.cmd.cd(data.file)
+					require("nvim-tree.api").tree.open()
+				else
+					-- File arg or no args: show tree on the side, keep focus on the file/dashboard.
+					-- The BufWipeout/BufDelete autocmd in autocmds.lua prunes stale ids
+					-- from vim.t.bufs so tabufline next/prev stays safe (E5108).
+					require("nvim-tree.api").tree.toggle({ focus = false, find_file = true })
+				end
+			end,
 		})
 	end,
 }

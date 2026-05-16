@@ -48,6 +48,16 @@ vim.api.nvim_create_autocmd("BufDelete", {
 	end,
 })
 
+-- Keep NvChad's tab buffer list free of wiped buffers so tabufline next/prev
+-- never tries to switch to an invalid id (E5108).
+vim.api.nvim_create_autocmd({ "BufWipeout", "BufDelete" }, {
+	callback = function()
+		if type(vim.t.bufs) == "table" then
+			vim.t.bufs = vim.tbl_filter(vim.api.nvim_buf_is_valid, vim.t.bufs)
+		end
+	end,
+})
+
 -- Restore cursor position
 local autocmd = vim.api.nvim_create_autocmd
 autocmd("BufReadPost", {
