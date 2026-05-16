@@ -38,14 +38,34 @@ local M = {
 				"yaml",
 			}
 
-			-- Install any missing parsers (main-branch API: opts.ensure_installed is ignored)
-			local ts_config = require("nvim-treesitter.config")
-			local installed = ts_config.get_installed("parsers")
+			-- Detect which branch API is available (master vs main)
+			local ok_config, ts_config = pcall(require, "nvim-treesitter.config")
+			local ts_mod = require("nvim-treesitter")
+
+			local function get_installed()
+				if ok_config and ts_config.get_installed then
+					return ts_config.get_installed("parsers")
+				elseif ts_mod.get_installed then
+					return ts_mod.get_installed()
+				else
+					return {}
+				end
+			end
+
+			local function install_parsers(langs)
+				if ts_mod.install then
+					ts_mod.install(langs)
+				elseif ok_config then
+					vim.cmd("TSInstall " .. table.concat(langs, " "))
+				end
+			end
+
+			local installed = get_installed()
 			local missing = vim.tbl_filter(function(l)
 				return not vim.list_contains(installed, l)
 			end, ensure_installed)
 			if #missing > 0 then
-				require("nvim-treesitter").install(missing)
+				install_parsers(missing)
 			end
 
 			local function start_ts(buf)
@@ -54,7 +74,7 @@ local M = {
 					return
 				end
 				local lang = vim.treesitter.language.get_lang(ft) or ft
-				if vim.list_contains(ts_config.get_installed("parsers"), lang) then
+				if vim.list_contains(get_installed(), lang) then
 					pcall(vim.treesitter.start, buf, lang)
 				end
 			end
@@ -76,6 +96,12 @@ local M = {
 
 	lspconfig = {
 		"neovim/nvim-lspconfig",
+		dependencies = {
+			{
+				"mason-org/mason-lspconfig.nvim",
+				dependencies = { "mason-org/mason.nvim" },
+			},
+		},
 		config = function()
 			-- load defaults i.e lua_lsp
 			require("nvchad.configs.lspconfig").defaults()
@@ -92,8 +118,13 @@ local M = {
 				"vue_ls",
 				"tailwindcss",
 				"svelte",
-        "clangd",
+				"clangd",
 			}
+
+			-- Auto-install LSP servers via Mason
+			require("mason-lspconfig").setup({
+				ensure_installed = servers,
+			})
 
 			vim.lsp.config("gopls", {
 				settings = {
