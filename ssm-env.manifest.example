@@ -1,0 +1,13 @@
+# Example manifest for ./ssm-env-sync.sh
+#
+# Copy to ~/.config/ssm-env/manifest and edit. Keep the real manifest out of this
+# repository — parameter paths describe private infrastructure.
+#
+# Only the variables listed here are managed. Everything else in the target file
+# is left untouched, so hand-written exports live alongside the synced ones.
+#
+# Format:  ENV_VAR   SSM_PARAMETER_PATH   REGION
+# Blank lines and lines starting with # are ignored.
+
+EXAMPLE_API_TOKEN    /myapp/api-token    us-east-1
+EXAMPLE_USER_EMAIL   /myapp/user-email   us-east-1

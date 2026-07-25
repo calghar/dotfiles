@@ -46,3 +46,7 @@ nvim/typrstats
 
 # Local shell secrets (not tracked)
 .zshrc.local
+
+# Real SSM manifest — parameter paths describe private infrastructure.
+# Only ssm-env.manifest.example is tracked.
+ssm-env.manifest

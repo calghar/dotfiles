@@ -81,7 +81,24 @@ tmux/               # Multiplexer + plugins
 yazi/               # File manager
 zsh/                # Plugins (submodules: syntax highlighting, autosuggestions)
 cheatsheets/        # Quick reference (Neovim, Tmux, Ghostty)
+setup.sh            # Bootstrap script
+ssm-env-sync.sh     # Sync selected secrets from AWS SSM into ~/.zshrc.local
 ```
+
+## Secrets from AWS SSM
+
+`~/.zshrc.local` holds machine-local secrets and is never tracked. `ssm-env-sync.sh`
+refreshes the subset of them that lives in AWS SSM Parameter Store; only variables
+named in the manifest are touched, so hand-written exports are left alone.
+
+```bash
+cp ssm-env.manifest.example ~/.config/ssm-env/manifest   # then edit
+./ssm-env-sync.sh --check    # report drift, write nothing
+./ssm-env-sync.sh            # sync
+```
+
+See `--help`. The real manifest is gitignored — parameter paths describe private
+infrastructure.
 
 ## Key Bindings
 
