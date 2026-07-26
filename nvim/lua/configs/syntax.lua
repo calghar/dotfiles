@@ -38,34 +38,16 @@ local M = {
 				"yaml",
 			}
 
-			-- Detect which branch API is available (master vs main)
-			local ok_config, ts_config = pcall(require, "nvim-treesitter.config")
-			local ts_mod = require("nvim-treesitter")
-
+			-- main branch only: the master branch is dead and breaks injections on nvim 0.12
 			local function get_installed()
-				if ok_config and ts_config.get_installed then
-					return ts_config.get_installed("parsers")
-				elseif ts_mod.get_installed then
-					return ts_mod.get_installed()
-				else
-					return {}
-				end
+				return require("nvim-treesitter.config").get_installed("parsers")
 			end
 
-			local function install_parsers(langs)
-				if ts_mod.install then
-					ts_mod.install(langs)
-				elseif ok_config then
-					vim.cmd("TSInstall " .. table.concat(langs, " "))
-				end
-			end
-
-			local installed = get_installed()
 			local missing = vim.tbl_filter(function(l)
-				return not vim.list_contains(installed, l)
+				return not vim.list_contains(get_installed(), l)
 			end, ensure_installed)
 			if #missing > 0 then
-				install_parsers(missing)
+				require("nvim-treesitter").install(missing)
 			end
 
 			local function start_ts(buf)
