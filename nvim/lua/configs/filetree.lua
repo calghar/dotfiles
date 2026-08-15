@@ -155,10 +155,10 @@ M.nvimtree = {
 					max = vim.diagnostic.severity.ERROR,
 				},
 				icons = {
-					hint = "",
-					info = "",
-					warning = "",
-					error = "",
+					hint = "\u{f0eb}",
+					info = "\u{f05a}",
+					warning = "\u{f071}",
+					error = "\u{f057}",
 				},
 			},
 			
